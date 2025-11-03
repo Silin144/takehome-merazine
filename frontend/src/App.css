@@ -10,23 +10,25 @@
 /* WELCOME SCREEN */
 .welcome-screen {
   position: relative;
-  width: 500px;
-  height: 600px;
+  width: 520px;
+  height: 650px;
   background: white;
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 35px 40px 40px;
+  gap: 5px;
 }
 
 .penny-character {
-  width: 120px;
+  width: 180px;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
 }
 
 @keyframes float {
@@ -41,31 +43,49 @@
 .text-box {
   background: #fef3f3;
   border: 2px solid #8b2f5e;
-  border-radius: 15px;
-  padding: 15px 20px;
+  border-radius: 12px;
+  padding: 12px 20px;
   margin-bottom: 20px;
-  max-width: 350px;
+  max-width: 320px;
+  position: relative;
+}
+
+.text-box::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 30px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #8b2f5e;
 }
 
 .intro-text {
-  font-size: 14px;
+  font-size: 13px;
   color: #333;
   text-align: center;
-  line-height: 1.4;
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 500;
 }
 
 .title {
-  font-size: 48px;
+  font-size: 52px;
   font-weight: 800;
   color: #8b2f5e;
   text-align: center;
-  line-height: 1.1;
-  margin-bottom: 10px;
+  line-height: 1;
+  margin-bottom: 5px;
+  letter-spacing: -1px;
 }
 
 .subtitle {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 400;
+  display: block;
+  margin-top: 5px;
 }
 
 .tagline-container {
@@ -76,9 +96,10 @@
 }
 
 .tagline {
-  font-size: 18px;
+  font-size: 17px;
   color: #8b2f5e;
   animation: fadeIn 0.5s ease-in;
+  font-weight: 500;
 }
 
 @keyframes fadeIn {
@@ -94,8 +115,8 @@
 
 .star {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
   border-radius: 50%;
   display: flex;
@@ -103,13 +124,14 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+  box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
   transition: transform 0.2s, box-shadow 0.2s;
+  border: 3px solid #f0c000;
 }
 
 .star:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+  transform: scale(1.08);
+  box-shadow: 0 8px 35px rgba(255, 215, 0, 0.7);
 }
 
 .star:active {
@@ -131,14 +153,16 @@
 }
 
 .star-icon {
-  font-size: 48px;
+  font-size: 44px;
+  margin-bottom: 2px;
 }
 
 .amount {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 800;
   color: #333;
-  margin-top: 5px;
+  margin-top: 2px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* CHAT SCREEN */

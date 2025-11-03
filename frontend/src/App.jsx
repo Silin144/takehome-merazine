@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
+import pennyFullBody from '/logo.png';
 import pennyImage from '/penny_pfp.png';
 import userImage from '/user_pfp.png';
 
@@ -238,7 +239,7 @@ function App() {
       
       {currentScreen === 'welcome' && (
         <div className="welcome-screen">
-          <img src={pennyImage} alt="Penny" className="penny-character" />
+          <img src={pennyFullBody} alt="Penny" className="penny-character" />
           <div className="text-box">
             <p className="intro-text">Tell us what you're selling. If it's real.</p>
           </div>
