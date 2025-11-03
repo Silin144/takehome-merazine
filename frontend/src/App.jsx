@@ -21,7 +21,6 @@ function App() {
   const chatEndRef = useRef(null);
   const audioRef = useRef(null);
   const [transcript, setTranscript] = useState('');
-  const [isDealReached, setIsDealReached] = useState(false);
   const [typingMessageIndex, setTypingMessageIndex] = useState(-1);
   const [displayedText, setDisplayedText] = useState('');
 
@@ -200,12 +199,6 @@ function App() {
         setTotalAmount(parseInt(dollarMatch[1]));
       }
 
-      // Check if deal was reached
-      const dealKeywords = ['deal', 'sold', 'pleasure doing business', 'you got yourself', 'we have a deal'];
-      if (dealKeywords.some(keyword => aiText.toLowerCase().includes(keyword))) {
-        setIsDealReached(true);
-        setTimeout(() => setIsDealReached(false), 3000);
-      }
 
       // Generate speech (still showing "Penny is thinking...")
       console.log('🎙️ Generating voice with ElevenLabs...');
@@ -289,15 +282,6 @@ function App() {
 
       {currentScreen === 'chat' && (
         <div className="chat-screen">
-          {isDealReached && (
-            <div className="deal-celebration">
-              <div className="confetti">🎉</div>
-              <div className="confetti">💰</div>
-              <div className="confetti">⭐</div>
-              <div className="confetti">🎊</div>
-              <div className="deal-text">Deal Reached!</div>
-            </div>
-          )}
           <div className="header">
             <h1 className="chat-title">penny is paying</h1>
           </div>
@@ -329,11 +313,7 @@ function App() {
               <div className="message penny-message">
                 <img src={pennyImage} alt="Penny" className="message-avatar" />
                 <div className="bubble thinking">
-                  <div className="thinking-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
+                  Penny is thinking...
                 </div>
               </div>
             )}

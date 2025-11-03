@@ -203,81 +203,6 @@
   overflow: hidden;
 }
 
-/* DEAL CELEBRATION */
-.deal-celebration {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1000;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.deal-text {
-  font-size: 48px;
-  font-weight: 800;
-  color: #8b2f5e;
-  text-shadow: 0 5px 15px rgba(139, 47, 94, 0.3);
-  animation: dealPop 0.5s ease-out;
-}
-
-@keyframes dealPop {
-  0% {
-    transform: scale(0) rotate(-10deg);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.2) rotate(5deg);
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-  }
-}
-
-.confetti {
-  position: absolute;
-  font-size: 40px;
-  animation: confettiFall 3s ease-out forwards;
-}
-
-.confetti:nth-child(1) {
-  left: 20%;
-  animation-delay: 0s;
-}
-
-.confetti:nth-child(2) {
-  left: 40%;
-  animation-delay: 0.2s;
-}
-
-.confetti:nth-child(3) {
-  left: 60%;
-  animation-delay: 0.4s;
-}
-
-.confetti:nth-child(4) {
-  left: 80%;
-  animation-delay: 0.6s;
-}
-
-@keyframes confettiFall {
-  0% {
-    top: -50px;
-    transform: rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    top: 100%;
-    transform: rotate(720deg);
-    opacity: 0;
-  }
-}
-
 .header {
   background: linear-gradient(135deg, #8b2f5e 0%, #a23d6f 100%);
   padding: 20px;
@@ -436,37 +361,6 @@
   }
   100% {
     background-position: 0% 50%;
-  }
-}
-
-.thinking-dots {
-  display: flex;
-  gap: 5px;
-  padding: 5px 0;
-}
-
-.thinking-dots span {
-  width: 8px;
-  height: 8px;
-  background: white;
-  border-radius: 50%;
-  animation: bounce 1.4s ease-in-out infinite;
-}
-
-.thinking-dots span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.thinking-dots span:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes bounce {
-  0%, 60%, 100% {
-    transform: translateY(0);
-  }
-  30% {
-    transform: translateY(-10px);
   }
 }
 
