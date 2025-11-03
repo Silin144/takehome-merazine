@@ -384,6 +384,23 @@
   border-bottom-right-radius: 5px;
 }
 
+.typing-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  color: white;
+  font-weight: bold;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
 .bubble.thinking {
   background: linear-gradient(90deg, 
     rgba(139, 47, 94, 0.8) 0%, 

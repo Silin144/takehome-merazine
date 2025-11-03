@@ -22,6 +22,8 @@ function App() {
   const audioRef = useRef(null);
   const [transcript, setTranscript] = useState('');
   const [isDealReached, setIsDealReached] = useState(false);
+  const [typingMessageIndex, setTypingMessageIndex] = useState(-1);
+  const [displayedText, setDisplayedText] = useState('');
 
   // Rotate taglines
   useEffect(() => {
@@ -192,8 +194,11 @@ function App() {
       const { response: aiText } = await negotiateRes.json();
       console.log('✅ Got Penny\'s response:', aiText);
 
-      // Add AI message
+      // Add AI message with typing effect
+      const newMessageIndex = messages.length + 1; // +1 because we already added user message
       setMessages((prev) => [...prev, { role: 'assistant', content: aiText }]);
+      setTypingMessageIndex(newMessageIndex);
+      setDisplayedText('');
 
       // Extract dollar amount from AI response if present
       const dollarMatch = aiText.match(/\$(\d+)/);
@@ -219,10 +224,28 @@ function App() {
       const audioUrl = URL.createObjectURL(responseAudio);
       console.log('✅ Voice generated, playing...');
 
-      // Play audio
+      // Play audio and start typing effect
       if (audioRef.current) {
         audioRef.current.src = audioUrl;
         audioRef.current.play();
+        
+        // Get audio duration to sync typing speed
+        audioRef.current.onloadedmetadata = () => {
+          const duration = audioRef.current.duration * 1000; // Convert to ms
+          const charDelay = duration / aiText.length; // Time per character
+          
+          // Type out the text
+          let currentIndex = 0;
+          const typingInterval = setInterval(() => {
+            if (currentIndex <= aiText.length) {
+              setDisplayedText(aiText.substring(0, currentIndex));
+              currentIndex++;
+            } else {
+              clearInterval(typingInterval);
+              setTypingMessageIndex(-1); // Done typing
+            }
+          }, Math.max(charDelay, 30)); // Minimum 30ms per char for readability
+        };
       }
 
       setIsThinking(false);
@@ -290,7 +313,12 @@ function App() {
                   <img src={pennyImage} alt="Penny" className="message-avatar" />
                 )}
                 <div className={`bubble ${isThinking && idx === messages.length - 1 && msg.role === 'assistant' ? 'thinking' : ''}`}>
-                  {msg.content}
+                  {msg.role === 'assistant' && idx === typingMessageIndex 
+                    ? displayedText 
+                    : msg.content}
+                  {msg.role === 'assistant' && idx === typingMessageIndex && (
+                    <span className="typing-cursor">|</span>
+                  )}
                 </div>
                 {msg.role === 'user' && (
                   <img src={userImage} alt="You" className="message-avatar" />
