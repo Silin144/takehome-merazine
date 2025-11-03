@@ -48,6 +48,19 @@
   margin-bottom: 20px;
   max-width: 320px;
   position: relative;
+  animation: textBoxGlow 3s ease-in-out infinite;
+}
+
+@keyframes textBoxGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(139, 47, 94, 0.2),
+                0 0 20px rgba(139, 47, 94, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(139, 47, 94, 0.3),
+                0 0 30px rgba(139, 47, 94, 0.15),
+                0 0 40px rgba(139, 47, 94, 0.1);
+  }
 }
 
 .text-box::after {
@@ -64,11 +77,12 @@
 
 .intro-text {
   font-size: 13px;
-  color: #333;
+  color: #999;
   text-align: center;
   line-height: 1.5;
   margin: 0;
-  font-weight: 500;
+  font-weight: 400;
+  font-style: italic;
 }
 
 .title {
@@ -152,16 +166,27 @@
   opacity: 1;
 }
 
-.star-icon {
-  font-size: 44px;
-  margin-bottom: 2px;
+.star-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  position: relative;
+  z-index: 2;
+}
+
+.mic-icon {
+  width: 36px;
+  height: 36px;
+  color: #333;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
 }
 
 .amount {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 800;
   color: #333;
-  margin-top: 2px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -360,8 +385,13 @@
 }
 
 .bubble.thinking {
-  background: #8b2f5e;
-  animation: glow 1.5s ease-in-out infinite;
+  background: linear-gradient(90deg, 
+    rgba(139, 47, 94, 0.8) 0%, 
+    rgba(139, 47, 94, 1) 50%, 
+    rgba(139, 47, 94, 0.8) 100%);
+  background-size: 200% 100%;
+  animation: glow 1.5s ease-in-out infinite, 
+             shimmerBubble 2s ease-in-out infinite;
   min-width: 80px;
   display: flex;
   justify-content: center;
@@ -370,10 +400,25 @@
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 10px rgba(139, 47, 94, 0.3);
+    box-shadow: 0 0 15px rgba(139, 47, 94, 0.4),
+                0 0 25px rgba(139, 47, 94, 0.2);
   }
   50% {
-    box-shadow: 0 0 25px rgba(139, 47, 94, 0.8);
+    box-shadow: 0 0 25px rgba(139, 47, 94, 0.8),
+                0 0 35px rgba(139, 47, 94, 0.4),
+                0 0 45px rgba(139, 47, 94, 0.2);
+  }
+}
+
+@keyframes shimmerBubble {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
@@ -499,17 +544,19 @@
   }
 }
 
-.recording-star .star-icon {
-  font-size: 48px;
+.recording-star .mic-icon {
+  width: 40px;
+  height: 40px;
 }
 
 .recording-indicator {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: -5px;
+  right: -5px;
   color: #ff0000;
-  font-size: 24px;
+  font-size: 20px;
   animation: blink 1s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(255, 0, 0, 0.5));
 }
 
 @keyframes blink {
