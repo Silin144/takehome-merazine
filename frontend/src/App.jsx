@@ -194,12 +194,6 @@ function App() {
       const { response: aiText } = await negotiateRes.json();
       console.log('✅ Got Penny\'s response:', aiText);
 
-      // Add AI message with typing effect
-      const newMessageIndex = messages.length + 1; // +1 because we already added user message
-      setMessages((prev) => [...prev, { role: 'assistant', content: aiText }]);
-      setTypingMessageIndex(newMessageIndex);
-      setDisplayedText('');
-
       // Extract dollar amount from AI response if present
       const dollarMatch = aiText.match(/\$(\d+)/);
       if (dollarMatch) {
@@ -213,7 +207,7 @@ function App() {
         setTimeout(() => setIsDealReached(false), 3000);
       }
 
-      // Step 2: Generate speech
+      // Generate speech (still showing "Penny is thinking...")
       console.log('🎙️ Generating voice with ElevenLabs...');
       const speakRes = await fetch(`${API_URL}/api/speak`, {
         method: 'POST',
@@ -222,9 +216,16 @@ function App() {
       });
       const responseAudio = await speakRes.blob();
       const audioUrl = URL.createObjectURL(responseAudio);
-      console.log('✅ Voice generated, playing...');
+      console.log('✅ Voice generated, ready to play...');
 
-      // Play audio and start typing effect
+      // Now add the message and start typing/speaking together
+      const newMessageIndex = messages.length + 1; // +1 because we already added user message
+      setMessages((prev) => [...prev, { role: 'assistant', content: aiText }]);
+      setIsThinking(false); // Hide "thinking" indicator
+      setTypingMessageIndex(newMessageIndex);
+      setDisplayedText('');
+
+      // Play audio and start typing effect simultaneously
       if (audioRef.current) {
         audioRef.current.src = audioUrl;
         audioRef.current.play();
@@ -247,8 +248,6 @@ function App() {
           }, Math.max(charDelay, 30)); // Minimum 30ms per char for readability
         };
       }
-
-      setIsThinking(false);
     } catch (error) {
       console.error('Error processing audio:', error);
       setIsThinking(false);
